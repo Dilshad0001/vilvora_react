@@ -1,0 +1,21 @@
+[
+    {
+      "id": 1,
+      "name": "Classic Shirt",
+      "price": 499,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 2,
+      "name": "Denim Jeans",
+      "price": 899,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": 3,
+      "name": "Sneakers",
+      "price": 1299,
+      "image": "https://via.placeholder.com/150"
+    }
+  ]
+  
