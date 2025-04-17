@@ -10,7 +10,11 @@ function Categorylistview({}) {
   const { Category } = useContext(ItemsContext);
 
   const navigate=useNavigate()
-
+  
+  const selectedCategory = (categoryName) => {
+    navigate('/products', { state: { selected_category: categoryName } });
+  };
+  
 
 
   return (
@@ -23,6 +27,7 @@ function Categorylistview({}) {
         {Category.map((category, index) => (
           <div 
             key={index}
+            onClick={() => selectedCategory(category.category_name)}
             className="min-w-[280px] max-w-sm flex-shrink-0 bg-white border  border-gray-200 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300"
           >
             {/* Image  */}

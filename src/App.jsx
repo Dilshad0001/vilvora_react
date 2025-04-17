@@ -10,9 +10,9 @@ import ProductCard from './components/ProductCard';
 import ProductItem from './pages/ProductItem';
 import Buy from './pages/Buy';
 import Payment from './pages/Payment';
-import PaymentForm from './pages/PaymentForm';
 import CategoryContext from './context/CategoryContext';
 import CartContext from './context/CartContext';
+import Pay from './pages/Pay';
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
             <Route path='/card' element={<ProductCard/>}/>
             <Route path='/item/:id' element={<ProductItem/>}/>
             <Route path='/buy/' element={<Payment/>}/>
-            <Route path='/pay/' element={<PaymentForm/>}/>
+            <Route path='/p/' element={<Pay/>}/>
           </Routes>
         </main>
         <Footer />        

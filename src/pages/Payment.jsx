@@ -3,18 +3,24 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axiosInstance from '../axiosInstance';
 import { CartItemsContext } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 function Payment() {
   const [order, setOrder] = useState([]);
   const [address, setAddress] = useState("");
   const [cartIds, setCartIds] = useState([]);
   const { cart, fetchCart } = useContext(CartItemsContext);
+  const navigate=useNavigate()
 
   useEffect(() => {
+    console.log("cc-",cart);
+    
     const fetchorderData = async () => {
       try {
-        const ids = res.data.map(item => item.order_id);
+        const ids = cart.map(item => item.order_id);
         setCartIds(ids);
+        console.log("--hhhh--",ids);
+        
       } catch (error) {
         console.error('no data found:', error);
       }
@@ -22,6 +28,7 @@ function Payment() {
     fetchorderData();
 
   }, []);
+console.log("==",cartIds);
 
   const totalAmount = cart.reduce(
     (total, item) => total + (item.product.product_price * item.count),
@@ -41,6 +48,7 @@ function Payment() {
         total_amount: total_amount,
         delivery_address: address
       });
+      navigate('/p/')
     } catch {
       console.log("error");
     }

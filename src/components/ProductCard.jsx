@@ -12,6 +12,8 @@ function ProductCard({selected_category="",selected_sort=""}) {
   const [product,setProduct]=useState([])
 
   const navigate=useNavigate()
+  const location = useLocation();
+  selected_category = location.state?.selected_category || "";
 
 
   const select_product=(slectedId)=>{
@@ -26,6 +28,8 @@ useEffect(() => {
   };
   fetch();
 }, []);
+console.log("fff",product);
+
 
 let filtered_product=[];
 
