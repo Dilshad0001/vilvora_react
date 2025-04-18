@@ -13,6 +13,10 @@ import Payment from './pages/Payment';
 import CategoryContext from './context/CategoryContext';
 import CartContext from './context/CartContext';
 import Pay from './pages/Pay';
+import ProductView from './Admin/ProductView';
+import ProductContext from './context/ProductContext';
+import ProductAdd from './Admin/ProductAdd';
+import ProductUpdate from './Admin/ProductUpdate';
 
 
 function App() {
@@ -20,6 +24,7 @@ function App() {
     <div className="min-h-screen flex flex-col">
       <CategoryContext>
         <CartContext>
+          <ProductContext>
       <BrowserRouter>
         <Navbar />
         <main className="flex-grow">
@@ -33,10 +38,14 @@ function App() {
             <Route path='/item/:id' element={<ProductItem/>}/>
             <Route path='/buy/' element={<Payment/>}/>
             <Route path='/p/' element={<Pay/>}/>
+            <Route path='/admin/product_view/' element={<ProductView/>}/>
+            <Route path='/admin/product_add/' element={<ProductAdd/>}/>
+            <Route path='/admin/product_update/' element={<ProductUpdate/>}/>
           </Routes>
         </main>
-        <Footer />        
+        <Footer />   
       </BrowserRouter>
+      </ProductContext>
       </CartContext>
       </CategoryContext>
     </div>
