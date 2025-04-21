@@ -17,6 +17,10 @@ import ProductView from './Admin/ProductView';
 import ProductContext from './context/ProductContext';
 import ProductAdd from './Admin/ProductAdd';
 import ProductUpdate from './Admin/ProductUpdate';
+import ProductDelete from './Admin/ProductDelete';
+import UserListView from './Admin/UserListView';
+import OrderListView from './Admin/OrderListView';
+import AdminHome from './Admin/AdminHome';
 
 
 function App() {
@@ -38,9 +42,16 @@ function App() {
             <Route path='/item/:id' element={<ProductItem/>}/>
             <Route path='/buy/' element={<Payment/>}/>
             <Route path='/p/' element={<Pay/>}/>
-            <Route path='/admin/product_view/' element={<ProductView/>}/>
+            {/* <Route path='/admin/product_view/' element={<ProductView/>}/>
             <Route path='/admin/product_add/' element={<ProductAdd/>}/>
-            <Route path='/admin/product_update/' element={<ProductUpdate/>}/>
+            <Route path='/admin/product_update/:updateId' element={<ProductUpdate/>}/>
+            <Route path='/admin/product_delete/' element={<ProductDelete/>}/>
+            <Route path='/admin/user_view/' element={<UserListView/>}/>
+            <Route path='/admin/order_details/' element={<OrderListView/>}/> */}
+            <Route path='/admin/*' element={<AdminHome />} />
+
+            
+
           </Routes>
         </main>
         <Footer />   
