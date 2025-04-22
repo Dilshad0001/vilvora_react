@@ -1,20 +1,19 @@
 
 
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import axiosInstance from '../axiosInstance';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify'; 
 
 const Pay = () => {
-  const [amount, setAmount] = useState(''); // State to store the entered amount
+  const [amount, setAmount] = useState('');
   const [user, setUser] = useState(null);
   const [cartItem, setCartItem] = useState([]);
   const [cartItemId, setCartItemId] = useState(null);
   const [cartItemAmount, setCartItemAmount] = useState(null);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
-  // Fetch the current user data
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -27,7 +26,6 @@ const Pay = () => {
     fetchUser();
   }, []);
 
-  // Fetch cart data when the component mounts
   useEffect(() => {
     const fetchCart = async () => {
       try {
@@ -40,15 +38,13 @@ const Pay = () => {
     fetchCart();
   }, []);
 
-  // Update state with the first cart item if available
   useEffect(() => {
     if (cartItem.length > 0) {
-      setCartItemId(cartItem[cartItem.length-1].id);
-      setCartItemAmount(cartItem[cartItem.length-1].total_amount);
+      setCartItemId(cartItem[cartItem.length - 1].id);
+      setCartItemAmount(cartItem[cartItem.length - 1].total_amount);
     }
   }, [cartItem]);
 
-  // Load the Razorpay script dynamically
   const loadRazorpayScript = () => {
     return new Promise((resolve, reject) => {
       if (document.querySelector('#razorpay-script')) {
@@ -64,19 +60,16 @@ const Pay = () => {
     });
   };
 
-  // Handle the payment process
   const handlePayment = async () => {
     try {
-      // Load Razorpay script
       const isScriptLoaded = await loadRazorpayScript();
       if (!isScriptLoaded) {
-        alert('Razorpay script failed to load!');
+        toast.error('Razorpay script failed to load!'); 
         return;
       }
 
-      // Ensure Razorpay is available after script load
       if (!window.Razorpay) {
-        alert('Razorpay SDK is not available, please try again!');
+        toast.error('Razorpay SDK is not available, please try again!'); 
         console.error('Razorpay SDK is not available in window');
         return;
       }
@@ -107,14 +100,14 @@ const Pay = () => {
             });
             console.log("✅ Verification Response:", verifyRes.data);
             if (verifyRes.data.message === 'Payment Verified Successfully') {
-              alert('✅ Payment successful!');
+              toast.success('✅ Payment successful!'); 
             } else {
-              alert('❌ Payment verification failed!');
+              toast.error('❌ Payment verification failed!'); 
             }
-            navigate('/')
+            navigate('/');
           } catch (err) {
             console.error("❌ Verification Error:", err.response?.data || err.message);
-            alert('❌ Paymemmmmnt verification failed.');
+            toast.error('❌ Payment verification failed.'); 
           }
         },
         prefill: {
@@ -127,37 +120,34 @@ const Pay = () => {
         },
       };
 
-      // Open Razorpay payment window
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     } catch (error) {
       if (error.response) {
         console.error('Backend error:', error.response.data);
-        alert(`Error: ${error.response.data.error || 'Unknown backend issue'}`);
+        toast.error(`Error: ${error.response.data.error || 'Unknown backend issue'}`); 
       } else {
         console.error('Network or unknown error:', error.message);
-        alert('Network or unknown error occurred');
+        toast.error('Network or unknown error occurred'); 
       }
     }
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>Make a Payment</h2>
-      <h1>{cartItemAmount}</h1>
-      <button
-        onClick={handlePayment}
-        style={{
-          marginLeft: '1rem',
-          padding: '0.5rem 1rem',
-          backgroundColor: '#F37254',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-      >
-        Pay Now
-      </button>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 px-4">
+      <div className="max-w-md w-full bg-white shadow-lg rounded-xl p-6">
+        <h2 className="text-3xl font-bold text-center text-gray-800 mb-4">Payment</h2>
+        <div className="text-center text-lg text-gray-700 mb-6">
+          Total Amount to Pay:
+          <span className="text-2xl font-bold block mt-2 text-green-600">₹{cartItemAmount}</span>
+        </div>
+        <button
+          onClick={handlePayment}
+          className="w-full bg-orange-500 hover:bg-orange-600 transition-colors duration-300 text-white py-3 rounded-lg font-semibold text-lg focus:outline-none focus:ring-2 focus:ring-orange-400"
+        >
+          Pay Now
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,135 +1,156 @@
-// import { Link } from 'react-router-dom';
-
-// const Navbar = () => {
-//   return (
-//     <nav>
-//       <Link to="/">Velvora</Link>
-//       <ul >
-//         <li><Link to="/" >Home</Link></li>
-//         <li><Link to="/cart">Cart</Link></li>
-//         <li><Link to="/login">Login</Link></li>
-//         <li><Link to="/register">Register</Link></li>
-//       </ul>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
 
 
-// ================================================================
-// import { Link } from 'react-router-dom';
-// import { useState } from 'react';
-// import { Menu, X } from 'lucide-react';
-
-// const Navbar = () => {
-//   const [isOpen, setIsOpen] = useState(false);
-
-//   const handleLinkClick = () => {
-//     setIsOpen(false);
-//   };
-
-//   return (
-//     <nav className="bg-amber-100 shadow-md px-4 py-3 flex justify-between items-center relative">
-//       <h2 className="text-2xl font-bold text-blue-600">Velvora</h2>
-
-//       {/* Mobile Menu Button */}
-//       <div className="md:hidden">
-//         <button onClick={() => setIsOpen(!isOpen)}>
-//           {isOpen ? <X size={24} /> : <Menu size={24} />}
-//         </button>
-//       </div>
-
-//       {/* Navigation Links */}
-//       <ul
-//         className={`md:flex md:space-x-6 md:items-center absolute md:static bg-white md:bg-transparent w-full md:w-auto right-0 px-4 md:px-0 transition-all duration-300 ease-in z-50 ${
-//           isOpen ? 'top-16 opacity-100' : 'top-[-400px] opacity-0'
-//         } md:opacity-100 md:top-0`}
-//       >
-//         <li className="py-2 md:py-0">
-//           <Link to="/" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Home</Link>
-//         </li>
-//         <li className="py-2 md:py-0">
-//           <Link to="/cart" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Cart</Link>
-//         </li>
-//         <li className="py-2 md:py-0">
-//           <Link to="/login" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Login</Link>
-//         </li>
-//         <li className="py-2 md:py-0">
-//           <Link to="/register" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Register</Link>
-//         </li>
-//       </ul>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
-// ==================================================================================
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = Cookies.get('accesstoken');
+    setIsLoggedIn(!!token);
+  }, []);
 
   const handleLinkClick = () => {
     setIsOpen(false);
   };
 
+  const handleLogout = () => {
+    Cookies.remove('accesstoken');
+    Cookies.remove('refreshtoken');
+    setIsLoggedIn(false);
+    navigate('/login');
+  };
+
   return (
-    <nav className="bg-amber-100 shadow-md px-4 py-3 relative">
-      {/* Mobile Menu Button */}
+    <nav className="bg-gradient-to-r from-gray-700 via-slate-800 to-gray-700 shadow-lg px-4 py-3 sticky top-0 z-50">
+      {/* Mobile Header */}
       <div className="md:hidden flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-blue-600">Velvora</h2>
-        <button onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        <h2 className="text-2xl font-bold text-amber-100 tracking-wide">Velvora</h2>
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="text-amber-100 hover:text-green-400 transition"
+        >
+          {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
-      {/* Desktop Layout */}
-      <div className="hidden md:block relative h-10 ">
+      {/* Desktop Header */}
+      <div className="hidden md:flex justify-between items-center">
+        <h2 className="text-3xl font-extrabold text-amber-100 tracking-wider">Velvora</h2>
+        <ul className="flex space-x-8 items-center">
+          <li>
+            <Link
+              to="/"
+              className="text-amber-100 font-medium hover:text-green-400 transition"
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/cart"
+              className="text-amber-100 font-medium hover:text-green-400 transition"
+            >
+              Cart
+            </Link>
+          </li>
 
-        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <h2 className="text-2xl font-bold text-blue-600">Velvora</h2>
-        </div>
-
-        {/* Right side nav */}
-        <ul className="absolute right-0 top-0 flex space-x-6 h-full items-center">
-          <li>
-            <Link to="/" className="text-gray-700 hover:text-blue-600">Home</Link>
-          </li>
-          <li>
-            <Link to="/cart" className="text-gray-700 hover:text-blue-600">Cart</Link>
-          </li>
-          <li>
-            <Link to="/login" className="text-gray-700 hover:text-blue-600">Login</Link>
-          </li>
-          <li>
-            <Link to="/register" className="text-gray-700 hover:text-blue-600">Register</Link>
-          </li>
+          {!isLoggedIn ? (
+            <>
+              <li>
+                <Link
+                  to="/login"
+                  className="text-amber-100 font-medium hover:text-green-400 transition"
+                >
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/register"
+                  className="text-amber-100 font-medium hover:text-green-400 transition"
+                >
+                  Register
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <button
+                onClick={handleLogout}
+                className="text-amber-100 font-medium hover:text-green-400 transition"
+              >
+                Logout
+              </button>
+            </li>
+          )}
         </ul>
       </div>
 
-      {/* Mobile  */}
+      {/* Mobile Menu */}
       <ul
-        className={`md:hidden bg-white mt-2 rounded-md shadow-md transition-all duration-300 ease-in overflow-hidden ${
-          isOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
+        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden mt-3 rounded-md ${
+          isOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
+        <li className="py-3 px-4 bg-amber-700 rounded-t-md">
+          <Link
+            to="/"
+            onClick={handleLinkClick}
+            className="block text-white font-medium hover:text-green-300 transition"
+          >
+            Home
+          </Link>
+        </li>
+        <li className="py-3 px-4 bg-slate-700 border-t border-slate-600">
+          <Link
+            to="/cart"
+            onClick={handleLinkClick}
+            className="block text-white font-medium hover:text-green-300 transition"
+          >
+            Cart
+          </Link>
+        </li>
 
-        {/* items mobile */}
-        <li className="py-2 px-4 border-b bg-amber-700">
-          <Link to="/" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Home</Link>
-        </li>
-        <li className="py-2 px-4 border-b">
-          <Link to="/cart" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Cart</Link>
-        </li>
-        <li className="py-2 px-4 border-b">
-          <Link to="/login" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Login</Link>
-        </li>
-        <li className="py-2 px-4">
-          <Link to="/register" onClick={handleLinkClick} className="block text-gray-700 hover:text-blue-600">Register</Link>
-        </li>
+        {!isLoggedIn ? (
+          <>
+            <li className="py-3 px-4 bg-slate-700 border-t border-slate-600">
+              <Link
+                to="/login"
+                onClick={handleLinkClick}
+                className="block text-white font-medium hover:text-green-300 transition"
+              >
+                Login
+              </Link>
+            </li>
+            <li className="py-3 px-4 bg-slate-700 border-t border-slate-600 rounded-b-md">
+              <Link
+                to="/register"
+                onClick={handleLinkClick}
+                className="block text-white font-medium hover:text-green-300 transition"
+              >
+                Register
+              </Link>
+            </li>
+          </>
+        ) : (
+          <li className="py-3 px-4 bg-slate-700 border-t border-slate-600 rounded-b-md">
+            <button
+              onClick={() => {
+                handleLinkClick();
+                handleLogout();
+              }}
+              className="block text-white font-medium hover:text-green-300 transition w-full text-left"
+            >
+              Logout
+            </button>
+          </li>
+        )}
       </ul>
     </nav>
   );

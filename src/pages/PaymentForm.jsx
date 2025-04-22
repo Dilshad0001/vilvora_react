@@ -1,4 +1,3 @@
-// src/App.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -34,7 +33,7 @@ function PaymentForm() {
         name: 'Dilshad Store',
         description: 'Card Payment',
         order_id: order_id,
-        method: 'card', // 👈 Focus on Card tab by default!
+        method: 'card', 
         handler: function (response) {
           alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
         },

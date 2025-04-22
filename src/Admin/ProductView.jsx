@@ -6,89 +6,104 @@ import { useNavigate } from 'react-router-dom';
 
 function ProductView() {
 
-  const navigate=useNavigate()
-  // const products = useContext(productContext);
-  const [productsHere,setProductsHere]=useState([])
+  const navigate = useNavigate();
+  const [productsHere, setProductsHere] = useState([]);
 
-    useEffect(()=>{
-        console.log("ggg");
-        
-        const getProduct=async()=>{
-            try{
-                const res=await axiosInstance.get('/adminproduct/product_view/')
-                setProductsHere(res.data)
-            }catch(error){
-                console.error("fetching error",error);      
-            }};
-        getProduct();
-    },[])
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await axiosInstance.get('/adminproduct/product_view/');
+        setProductsHere(res.data);
+      } catch (error) {
+        console.error("fetching error", error);
+      }
+    };
+    getProduct();
+  }, []);
 
-const deleteProduct=async(id)=>{
-  const updateProduct=productsHere.filter(i=>i.id !==id);
-  setProductsHere(updateProduct)
-  try{
-    await axiosInstance.delete('/adminproduct/product_view/',{
-      data: { id: id },}
-    )
-  }catch(error){
-    console.error("delete error",error);
+  console.log("hhhhhhhhhhhhhhhhhhhhhhh");
+
+  const toAddProduct =()=>{
+    navigate('/admin/product_add/')
   }
-}
-
-const toProductUpdate=(updateId)=>{
-  navigate(`/admin/product_update/:${updateId}`)
-  console.log(('kkk'));
   
 
-}
+  const deleteProduct = async (id) => {
+    const updateProduct = productsHere.filter(i => i.id !== id);
+    setProductsHere(updateProduct);
+    try {
+      await axiosInstance.delete('/adminproduct/product_view/', {
+        data: { id: id },
+      });
+    } catch (error) {
+      console.error("delete error", error);
+    }
+  };
 
+  const toProductUpdate = (updateId) => {
+    navigate(`/admin/product_update/:${updateId}`);
+  };
 
   return (
-    
-    <div className="p-6">
-      
-      <h1 className="text-2xl font-bold mb-4">Product View</h1>
-      <button>Add products</button>
+    <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Product View</h1>
+        <button  onClick={toAddProduct} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition">
+          Add Product
+        </button>
+      </div>
 
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border border-gray-300 rounded-md">
+        <table className="min-w-full bg-white border border-gray-300 rounded-md shadow-sm">
           <thead className="bg-gray-100">
             <tr>
-              <th className="py-2 px-4 border-b">Image</th>
-              <th className="py-2 px-4 border-b">Name</th>
-              <th className="py-2 px-4 border-b">Price</th>
-              <th className="py-2 px-4 border-b">Category</th>
-              <th className="py-2 px-4 border-b">Description</th>
-              <th className="py-2 px-4 border-b">Created At</th>
-              <th className="py-2 px-4 border-b">rge</th>
-
+              <th className="py-3 px-4 border-b text-left">Image</th>
+              <th className="py-3 px-4 border-b text-left">Name</th>
+              <th className="py-3 px-4 border-b text-left">Price</th>
+              <th className="py-3 px-4 border-b text-left">Category</th>
+              <th className="py-3 px-4 border-b text-left">Description</th>
+              <th className="py-3 px-4 border-b text-left">Created At</th>
+              <th className="py-3 px-4 border-b text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
             {productsHere.map((product) => (
-              <tr key={product.id} className="text-center">
-                <td className="py-2 px-4 border-b">
+              <tr key={product.id} className="text-gray-700">
+                <td className="py-3 px-4 border-b">
                   <img
-                    src={`http://localhost:8000${product.product_image}`} 
+                    src={`http://localhost:8000${product.product_image}`}
                     alt={product.product_name}
-                    className="h-20 w-20 object-cover mx-auto rounded"
+                    className="h-16 w-16 object-cover rounded shadow-sm"
                   />
                 </td>
-                <td className="py-2 px-4 border-b">{product.product_name}</td>
-                <td className="py-2 px-4 border-b">₹ {product.product_price}</td>
-                <td className="py-2 px-4 border-b">{product.category.category_name}</td>
-                <td className="py-2 px-4 border-b">
+                <td className="py-3 px-4 border-b">{product.product_name}</td>
+                <td className="py-3 px-4 border-b">₹ {product.product_price}</td>
+                <td className="py-3 px-4 border-b">{product.category.category_name}</td>
+                <td className="py-3 px-4 border-b">
                   {product.product_decription ? product.product_decription : 'No description'}
                 </td>
-                <td className="py-2 px-4 border-b">{new Date(product.created_at).toLocaleString()}</td>
-                <button onClick={()=>deleteProduct(product.id)}>delete </button>
-                <button onClick={()=>toProductUpdate(product.id)} >update </button>
+                <td className="py-3 px-4 border-b">
+                  {new Date(product.created_at).toLocaleString()}
+                </td>
+                <td className="py-3 px-4 border-b space-x-2">
+                  <button
+                    onClick={() => deleteProduct(product.id)}
+                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={() => toProductUpdate(product.id)}
+                    className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded-md text-sm"
+                  >
+                    Update
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      {/* <button>Delete</button> */}
     </div>
   );
 }

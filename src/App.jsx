@@ -1,4 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import Footer from './components/Footer';
 import Home from '../src/pages/Home';
 import Navbar from '../src/components/Navbar';
@@ -21,7 +23,9 @@ import ProductDelete from './Admin/ProductDelete';
 import UserListView from './Admin/UserListView';
 import OrderListView from './Admin/OrderListView';
 import AdminHome from './Admin/AdminHome';
-
+import Categorylistview from './pages/Categorylistview';
+import toast, { Toaster } from 'react-hot-toast'; 
+import AdminLogin from './pages/AdminLogin';
 
 function App() {
   return (
@@ -29,36 +33,45 @@ function App() {
       <CategoryContext>
         <CartContext>
           <ProductContext>
-      <BrowserRouter>
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path='/products' element={<Products/>}/>
-            <Route path='/card' element={<ProductCard/>}/>
-            <Route path='/item/:id' element={<ProductItem/>}/>
-            <Route path='/buy/' element={<Payment/>}/>
-            <Route path='/p/' element={<Pay/>}/>
-            {/* <Route path='/admin/product_view/' element={<ProductView/>}/>
-            <Route path='/admin/product_add/' element={<ProductAdd/>}/>
-            <Route path='/admin/product_update/:updateId' element={<ProductUpdate/>}/>
-            <Route path='/admin/product_delete/' element={<ProductDelete/>}/>
-            <Route path='/admin/user_view/' element={<UserListView/>}/>
-            <Route path='/admin/order_details/' element={<OrderListView/>}/> */}
-            <Route path='/admin/*' element={<AdminHome />} />
-
-            
-
-          </Routes>
-        </main>
-        <Footer />   
-      </BrowserRouter>
-      </ProductContext>
-      </CartContext>
+            <BrowserRouter>
+              <AppWithRouter />
+            </BrowserRouter>
+          </ProductContext>
+        </CartContext>
       </CategoryContext>
+    </div>
+  );
+}
+
+function AppWithRouter() {
+  const location = useLocation();
+
+  const isAdminRoute = location.pathname.startsWith('/admin');
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {!isAdminRoute && <Navbar />}
+
+      <main className="flex-grow bg-gradient-to-br from-[#eeecec] via-[#fffafa] to-[#f1dcde]">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/card" element={<ProductCard />} />
+          <Route path="/item/:id" element={<ProductItem />} />
+          <Route path="/buy" element={<Payment />} />
+          <Route path="/p" element={<Pay />} />
+          <Route path="/c" element={<Categorylistview />} />
+          <Route path="/ad" element={<AdminLogin />} />
+
+          <Route path="/admin/*" element={<AdminHome />} />
+        </Routes>
+        <Toaster position="top-right" />
+      </main>
+
+      {!isAdminRoute && <Footer />}
     </div>
   );
 }

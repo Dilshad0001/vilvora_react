@@ -1,32 +1,3 @@
-// import React, { createContext, useEffect, useState } from 'react'
-// import axiosInstance from '../axiosInstance'
-
-
-// export const CartItemsContext=createContext()
-// function CartContext({children}) {
-//     const [cart,setCart]=useState([])
-
-//     useEffect(()=>{
-//         const fetchCart=async()=>{
-//             try{
-//             const response=await axiosInstance.get('/cart/');
-//             setCart(response.data)
-//             }catch(error){
-//                 console.error("fetching cart",error);
-                
-//             }
-//         }
-//         fetchCart();
-//     },[]);
-//   return (
-//     <CartItemsContext.Provider value={[cart,setCart]}>
-//         {children}
-//     </CartItemsContext.Provider>
-
-//   )
-// }
-
-// export default CartContext
 
 
 import React, { createContext, useEffect, useState } from 'react';

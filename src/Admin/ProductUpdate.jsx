@@ -48,14 +48,12 @@ const parsed = parseInt(cleaned, 10);
     console.log("submitted");
     const formData = new FormData();
 
-    // Append form data
     formData.append('id', parsed);
     formData.append('product_name', selectedItem.product_name);
     formData.append('product_price', selectedItem.product_price);
     formData.append('category', selectedItem.category);
     formData.append('product_decription', selectedItem.product_decription);
 
-    // Append image file if it exists
     if (selectedItem.product_image instanceof File) {
       formData.append('product_image', selectedItem.product_image);
     }

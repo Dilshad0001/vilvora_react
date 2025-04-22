@@ -1,69 +1,87 @@
 
 
-import React from 'react'
+
+import React from 'react';
 
 function Footer() {
     return (
-        <div className='' id='footer'>
-            <div className='w-full xl:flex '>
-                <div className='xl:w-[25%] w-full bg-[#CF4616] h-[500px] text-white flex flex-col justify-between px-8'>
-                    <div className='text-2xl pt-10'>Newsletter</div>
-                    <div className='text-base w-[250px] text-left'>Sign up to receive updates on new products and special offers</div>
-                    <div className='text-lg flex flex-col'>
-                        <p>Subscribe to our newsletter</p>
-                        <p className='my-5'>Email *</p>
-                        <input className='mb-5 outline-none border-b-2 bg-transparent w-full' type="email" name="" id="" />
-                        <button className='w-full h-[45px] bg-white my-5 text-[#CF4616]'>Submit</button>
+        <footer className="bg-[#CF4616] text-white" id="footer">
+            <div className="w-full flex flex-col xl:flex-row">
+                {/* Left Newsletter Section */}
+                <div className="xl:w-[25%] w-full bg-[#CF4616] px-8 py-10 flex flex-col justify-between space-y-6">
+                    <h2 className="text-3xl font-semibold">Newsletter</h2>
+                    <p className="text-base max-w-xs">Sign up to receive updates on new products and special offers</p>
+                    <div className="text-lg flex flex-col space-y-2">
+                        <p className="font-medium">Subscribe to our newsletter</p>
+                        <label className="text-sm mt-3">Email *</label>
+                        <input
+                            type="email"
+                            className="border-b-2 border-white bg-transparent placeholder-white text-white focus:outline-none focus:border-white py-1"
+                            placeholder="Enter your email"
+                        />
+                        <button className="w-full mt-4 bg-white text-[#CF4616] font-semibold py-2 transition-all hover:bg-[#fefefe]">
+                            Submit
+                        </button>
                     </div>
                 </div>
-                <div className='xl:w-[75%]  bg-[#E8EBED]'>
-                    <div className='grid xl:grid-cols-4 grid-cols-2 gap-0 xl:h-[364px]'>
-                        <div className='px-12'>
-                            <div className='text-xl my-10'>Shop</div>
-                            <div className='list-none text-base'>
-                                <li>Men</li>
-                                <li>Woman</li>
-                                <li>Sale</li>
-                                <li>Stories</li>
-                            </div>
-                        </div>
-                        <div className='px-12'>
-                            <div className='text-xl my-10'>Follow</div>
-                            <div className='list-none text-base'>
-                                <li>Instagram</li>
-                                <li>Facebook</li>
 
-                            </div>
+                {/* Right Links Section */}
+                <div className="xl:w-[75%] bg-[#E8EBED] text-black">
+                    <div className="grid grid-cols-2 xl:grid-cols-4 gap-6 py-10 px-8 xl:px-16">
+                        {/* Shop */}
+                        <div>
+                            <h3 className="text-xl font-semibold mb-4">Shop</h3>
+                            <ul className="space-y-2 text-base">
+                                <li className="hover:underline cursor-pointer">Men</li>
+                                <li className="hover:underline cursor-pointer">Women</li>
+                                <li className="hover:underline cursor-pointer">Sale</li>
+                                <li className="hover:underline cursor-pointer">Stories</li>
+                            </ul>
                         </div>
-                        <div className='px-12 col-span-2 xl:col-auto'>
-                            <div className='text-xl my-10'>Policy</div>
-                            <div className='list-none text-base'>
-                                <li>Terms & Conditions</li>
-                                <li>Privacy Policy</li>
-                                <li>Shipping Policy</li>
-                                <li>Refund Policy</li>
-                                <li>Accessibility Statement</li>
-                                <li>FAQ</li>
-                            </div>
+
+                        {/* Follow */}
+                        <div>
+                            <h3 className="text-xl font-semibold mb-4">Follow</h3>
+                            <ul className="space-y-2 text-base">
+                                <li className="hover:underline cursor-pointer">Instagram</li>
+                                <li className="hover:underline cursor-pointer">Facebook</li>
+                            </ul>
                         </div>
-                        <div className='px-12 col-span-2 xl:col-auto'>
-                            <div className='text-xl my-10'>Store</div>
-                            <div className='list-none text-base'>
+
+                        {/* Policy */}
+                        <div>
+                            <h3 className="text-xl font-semibold mb-4">Policy</h3>
+                            <ul className="space-y-2 text-base">
+                                <li className="hover:underline cursor-pointer">Terms & Conditions</li>
+                                <li className="hover:underline cursor-pointer">Privacy Policy</li>
+                                <li className="hover:underline cursor-pointer">Shipping Policy</li>
+                                <li className="hover:underline cursor-pointer">Refund Policy</li>
+                                <li className="hover:underline cursor-pointer">Accessibility</li>
+                                <li className="hover:underline cursor-pointer">FAQ</li>
+                            </ul>
+                        </div>
+
+                        {/* Store */}
+                        <div>
+                            <h3 className="text-xl font-semibold mb-4">Store</h3>
+                            <ul className="space-y-2 text-base">
                                 <li>Bridgeon Manjeri</li>
                                 <li>Manjeri 679331</li>
                                 <li>9:00 - 5:00</li>
                                 <li>vilvora@gmail.com</li>
                                 <li>9995869125</li>
-                            </div>
+                            </ul>
                         </div>
                     </div>
-                    <div className='xl:pl-16 pl-12 flex items-end h-[137px] pb-10 py-10'>
-                        <h1 className='xl:w-full w-[200px]'>© 2025 dilshad. Built in from Bridgeon Solutions</h1>
+
+                    {/* Footer bottom */}
+                    <div className="text-sm text-center py-6 border-t border-gray-300 px-4">
+                        © 2025 Dilshad. Built at Bridgeon Solutions.
                     </div>
                 </div>
             </div>
-        </div>
-    )
+        </footer>
+    );
 }
 
-export default Footer
+export default Footer;
