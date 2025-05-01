@@ -36,8 +36,9 @@ useEffect(()=>{
     product_decription: '',
     product_image: null
   });
-
   
+
+
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {    
