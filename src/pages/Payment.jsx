@@ -3,27 +3,46 @@ import React, { useContext, useEffect, useState } from 'react';
 import axiosInstance from '../axiosInstance';
 import { CartItemsContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllCart } from '../redux/cartSlice';
 
 function Payment() {
   const [order, setOrder] = useState([]);
   const [address, setAddress] = useState("");
   const [cartIds, setCartIds] = useState([]);
-  const { cart, fetchCart } = useContext(CartItemsContext);
+  // const { cart, fetchCart } = useContext(CartItemsContext);
   const navigate = useNavigate();
+  const dispatch=useDispatch()
+
+  // ===========================
+  const {cartitems}=useSelector(state=>state.cart)
+
+  useEffect(()=>{
+    dispatch(getAllCart())
+    console.log("kkkkkkkkkkk");
+    
+  },[])
+
+  console.log("cccccccc=",cartitems);
+  
+
+  // ===========================
 
   useEffect(() => {
     const fetchorderData = async () => {
       try {
-        const ids = cart.map(item => item.order_id);
+        const ids = cartitems.map(item => item.order_id);
         setCartIds(ids);
       } catch (error) {
         console.error('No data found:', error);
       }
     };
     fetchorderData();
-  }, [cart]);
+    // console.log("oooooo");
+    
+  }, [cartitems]);
 
-  const totalAmount = cart.reduce(
+  const totalAmount = cartitems.reduce(
     (total, item) => total + (item.product.product_price * item.count),
     0
   );
@@ -55,7 +74,7 @@ function Payment() {
       <h1 className="text-3xl font-bold text-center mb-8 text-blue-800">📟 Order Summary</h1>
 
       <div className="space-y-6 divide-y divide-gray-300">
-        {cart.map(item => (
+        {cartitems.map(item => (
           <div key={item.order_id} className="pt-4">
             <h2 className="text-xl font-semibold text-gray-800">
               {item.product.category.category_name} - {item.product.product_name}

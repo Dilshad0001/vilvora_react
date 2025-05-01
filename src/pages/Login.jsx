@@ -34,6 +34,7 @@ function Login() {
           
         } else {
           navigate('/')
+          // window.location.reload()
           
         }
       } catch (error) {

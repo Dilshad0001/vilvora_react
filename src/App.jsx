@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import Products from './pages/Products';
 import ProductCard from './components/ProductCard';
 import ProductItem from './pages/ProductItem';
-import Buy from './pages/Buy';
+// import Buy from './pages/Buy';
 import Payment from './pages/Payment';
 import CategoryContext from './context/CategoryContext';
 import CartContext from './context/CartContext';
@@ -65,6 +65,7 @@ function AppWithRouter() {
           <Route path="/p" element={<Pay />} />
           <Route path="/c" element={<Categorylistview />} />
           <Route path="/ad" element={<AdminLogin />} />
+          {/* <Route path="/a" element={<Buy />} /> */}
 
           <Route path="/admin/*" element={<AdminHome />} />
         </Routes>

@@ -12,43 +12,79 @@ import OrderListView from './OrderListView';
 import axiosInstance from '../axiosInstance';
 import Cookies from 'js-cookie';
 import AdminLogin from '../pages/AdminLogin';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUser } from '../redux/userSlice';
+import { getAllOrder } from '../redux/orderSlice';
 
 function AdminHome() {
   const navigate = useNavigate();
   const location = useLocation(); 
   const [isAdmin, setIsAdmin] = useState(false);
-  const [usersCount, setUsersCount] = useState();
-  const [orderCount, setOrderCount] = useState();
+  // const [usersCount, setUsersCount] = useState();
+  // const [orderCount, setOrderCount] = useState();
+  const {users}=useSelector(state=>state.user)
+  const {orders}=useSelector(state=>state.order)
+  const dispatch=useDispatch()
+   
+  const totalUsers = users.length > 0 ? users[users.length - 1].id : 0;
+  const ordersCompleted=orders.length > 0 ? orders[orders.length - 1].id : 0;
 
   const HomeData = {
-    totalUsers: usersCount,
-    ordersCompleted: orderCount,
+    totalUsers: totalUsers,
+    ordersCompleted: ordersCompleted,
     revenue: 12500,
   };
+  
+
+  // useEffect(() => {
+  //   const getuser = async () => {
+  //     try {
+  //       const resUser = await axiosInstance.get('users/');
+  //       // console.log("***",resUser.data.results[resUser.data.results.length - 1].id);
+        
+  //       setUsersCount(resUser.data.results[resUser.data.results.length - 1].id);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getuser();
+  // }, []);
+
+
+  useEffect(()=>{
+    dispatch(getAllUser())
+    // console.log("ddddddddddd",users);
+    dispatch(getAllOrder())
+    
+    
+    
+
+  },[])
 
   useEffect(() => {
-    const getuser = async () => {
-      try {
-        const resUser = await axiosInstance.get('users/');
-        setUsersCount(resUser.data[resUser.data.length - 1].id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getuser();
-  }, []);
+    if (orders.length > 0) {
+      // setUsersCount(users[users.length - 1].id);
+      console.log('rrr',orders[orders.length-1].id);
+      
+    }
+    
+  }, [orders]);
+  
 
-  useEffect(() => {
-    const getorder = async () => {
-      try {
-        const resOrder = await axiosInstance.get('adminorder/');
-        setOrderCount(resOrder.data[resOrder.data.length - 1].id);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getorder();
-  }, []);
+  // useEffect(() => {
+  //   const getorder = async () => {
+  //     try {
+  //       const resOrder = await axiosInstance.get('adminorder/');
+  //       setOrderCount(resOrder.data[resOrder.data.length - 1].id);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   getorder();
+  // }, []);
+
+  
+
 
   useEffect(() => {
     const checkAdminStatus = async () => {

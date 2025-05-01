@@ -4,8 +4,13 @@
 import React, { useContext, useState } from 'react';
 import axiosInstance from '../axiosInstance';
 import { ItemsContext } from '../context/CategoryContext';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addProducts } from '../redux/productSlice';
 
 function ProductAdd() {
+  const navigate=useNavigate()
+  const dispatch=useDispatch()
   const [product, setProduct] = useState({
     product_name: "",
     category: "",
@@ -46,19 +51,21 @@ function ProductAdd() {
     formData.append("product_image", product.product_image);
     formData.append("product_description", product.product_description);
 
-    axiosInstance
-      .post('/adminproduct/product_view/', formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        console.log("Product added successfully:", response.data);
-        Navigate('/admin/product_view/')
-      })
-      .catch((error) => {
-        console.error("Error adding product:", error);
-      });
+    dispatch(addProducts(formData))
+
+    // axiosInstance
+    //   .post('/adminproduct/product_view/', formData, {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log("Product added successfully:", response.data);
+    //     navigate('/admin/product_view/')
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error adding product:", error);
+    //   });
   };
 
   return (

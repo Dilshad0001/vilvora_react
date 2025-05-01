@@ -4,6 +4,10 @@ import { productContext } from '../context/ProductContext';
 import { ItemsContext } from '../context/CategoryContext';
 import axiosInstance from '../axiosInstance';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../redux/productSlice';
+
+
 
 function ProductUpdate() {
   const navigate=useNavigate()
@@ -14,7 +18,15 @@ const cleaned = updateId.replace(":", "");
 const parsed = parseInt(cleaned, 10);
 
   const { Category } = useContext(ItemsContext);
-  const products = useContext(productContext);
+  // const products = useContext(productContext);
+  const { products, nextPage, previousPage, loading, error } = useSelector((state) => state.product);
+const dispatch=useDispatch()
+
+useEffect(()=>{
+  dispatch(getAllProducts())
+  
+  
+},[dispatch])
 
   const [selectedItem, setSelectedItem] = useState({
     id:'',

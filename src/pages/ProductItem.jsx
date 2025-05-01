@@ -22,16 +22,28 @@ function ProductItem() {
     fetchProduct();
   }, [id]);
 
+
+
+
   const addTocart = async (id) => {
+    console.log("sttaa");
+    
     try {
       const res = await axiosInstance.post("/cart/", {
         product: id
       });
+      console.log("resss",res.data);
+      
+      
     } catch (error) {
       console.error("error post product", error);
+      console.log("err");
+      
     }
     setAdded(true);    
   };
+  console.log("addeddd===",added);
+  
 
   const GotoCart = () => {
     navigate("/cart/");

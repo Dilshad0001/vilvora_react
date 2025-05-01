@@ -1,54 +1,89 @@
 
-import React, { useContext, useEffect, useState } from 'react';
-import { productContext } from '../context/ProductContext';
+
+import React, { useEffect, useState } from 'react';
 import axiosInstance from '../axiosInstance';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../redux/productSlice';
+import { deleteProduct } from '../redux/productSlice'; 
 
 function ProductView() {
 
   const navigate = useNavigate();
-  const [productsHere, setProductsHere] = useState([]);
+  // const [productsHere, setProductsHere] = useState([]);
+  // const [nextPage, setNextPage] = useState(null);
+  // const [prevPage, setPrevPage] = useState(null);
 
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await axiosInstance.get('/adminproduct/product_view/');
-        setProductsHere(res.data);
-      } catch (error) {
-        console.error("fetching error", error);
-      }
-    };
-    getProduct();
-  }, []);
+  // const fetchProducts = async (url = '/adminproduct/product_view/') => {
+  //   try {
+  //     const res = await axiosInstance.get(url);
+  //     // setProductsHere(res.data.results);
+  //     setNextPage(res.data.next);
+  //     setPrevPage(res.data.previous);
+  //   } catch (error) {
+  //     console.error("fetching error", error);
+  //   }
+  // };
+  // ==================
+  const { products, nextPage, previousPage, loading, error } = useSelector((state) => state.product);
+  const dispatch=useDispatch()
 
-  console.log("hhhhhhhhhhhhhhhhhhhhhhh");
+  useEffect(()=>{
+    dispatch(getAllProducts())
+    
+    
+  },[])
 
-  const toAddProduct =()=>{
-    navigate('/admin/product_add/')
+  const fetchNextPage = () => {
+    if (nextPage) dispatch(getAllProducts(nextPage))
   }
-  
 
-  const deleteProduct = async (id) => {
-    const updateProduct = productsHere.filter(i => i.id !== id);
-    setProductsHere(updateProduct);
-    try {
-      await axiosInstance.delete('/adminproduct/product_view/', {
-        data: { id: id },
-      });
-    } catch (error) {
-      console.error("delete error", error);
-    }
+  const fetchPreviousPage = () => {
+    if (previousPage) dispatch(getAllProducts(previousPage))
+  }
+  console.log("pro from reduxx--",products);
+// =====================
+  // useEffect(() => {
+  //   fetchProducts();
+  // }, []);
+
+  const toAddProduct = () => {
+    navigate('/admin/product_add/');
   };
 
+  // const deleteProduct = async (id) => {
+  //   const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+  //   if (confirmDelete) {
+  //     const updateProduct = productsHere.filter(i => i.id !== id);
+  //     setProductsHere(updateProduct);
+  //     try {
+  //       await axiosInstance.delete('/adminproduct/product_view/', {
+  //         data: { id: id },
+  //       });
+  //     } catch (error) {
+  //       console.error("delete error", error);
+  //     }
+  //   }
+  // };
+
+  
+
+const handleDelete = (id) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+  if (confirmDelete) {
+    dispatch(deleteProduct(id));
+  }
+};
+
   const toProductUpdate = (updateId) => {
-    navigate(`/admin/product_update/:${updateId}`);
+    navigate(`/admin/product_update/${updateId}`);
   };
 
   return (
     <div className="p-4 md:p-6 bg-gray-50 min-h-screen">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Product View</h1>
-        <button  onClick={toAddProduct} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition">
+        <button onClick={toAddProduct} className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition">
           Add Product
         </button>
       </div>
@@ -67,7 +102,7 @@ function ProductView() {
             </tr>
           </thead>
           <tbody>
-            {productsHere.map((product) => (
+            {products.map((product) => (
               <tr key={product.id} className="text-gray-700">
                 <td className="py-3 px-4 border-b">
                   <img
@@ -87,7 +122,7 @@ function ProductView() {
                 </td>
                 <td className="py-3 px-4 border-b space-x-2">
                   <button
-                    onClick={() => deleteProduct(product.id)}
+                    onClick={() => handleDelete(product.id)}
                     className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm"
                   >
                     Delete
@@ -103,6 +138,25 @@ function ProductView() {
             ))}
           </tbody>
         </table>
+
+        {/* Pagination Controls */}
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={() => fetchPreviousPage(previousPage)}
+            disabled={!previousPage}
+            className={`px-4 py-2 rounded-md text-white ${previousPage ? 'bg-gray-700 hover:bg-gray-800' : 'bg-gray-400 cursor-not-allowed'}`}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => fetchNextPage(nextPage)}
+            disabled={!nextPage}
+            className={`px-4 py-2 rounded-md text-white ${nextPage ? 'bg-gray-700 hover:bg-gray-800' : 'bg-gray-400 cursor-not-allowed'}`}
+          >
+            Next
+          </button>
+        </div>
+
       </div>
     </div>
   );

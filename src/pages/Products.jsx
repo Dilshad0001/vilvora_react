@@ -4,12 +4,23 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../components/ProductCard';
 import axiosInstance from '../axiosInstance';
 import { ChevronDown, ChevronUp, Filter } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../redux/productSlice';
 
 function Products() {
   const [category, setCategory] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sortOption, setSortOption] = useState('');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  // const {products}=useSelector(state=>state.product)
+  // const dispatch=useDispatch()
+
+  // useEffect(()=>{
+  //   dispatch(getAllProducts())
+    
+    
+  // },[])
+  // console.log("pro from reduxx--",products);
 
   useEffect(() => {
     const fetch = async () => {
@@ -18,6 +29,8 @@ function Products() {
     };
     fetch();
   }, []);
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-6">

@@ -1,19 +1,22 @@
 
 
-import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
 import { Menu, X } from 'lucide-react';
 import Cookies from 'js-cookie';
+import { CartItemsContext } from '../context/CartContext';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const {setCart}=useContext(CartItemsContext)
+  const location=useLocation()
 
   useEffect(() => {
     const token = Cookies.get('accesstoken');
     setIsLoggedIn(!!token);
-  }, []);
+  }, [location]);
 
   const handleLinkClick = () => {
     setIsOpen(false);
@@ -22,6 +25,8 @@ const Navbar = () => {
   const handleLogout = () => {
     Cookies.remove('accesstoken');
     Cookies.remove('refreshtoken');
+    // setCart([])
+    
     setIsLoggedIn(false);
     navigate('/login');
   };
@@ -54,6 +59,7 @@ const Navbar = () => {
           <li>
             <Link
               to="/cart"
+      
               className="text-amber-100 font-medium hover:text-green-400 transition"
             >
               Cart
