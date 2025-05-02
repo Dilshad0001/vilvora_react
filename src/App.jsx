@@ -10,7 +10,6 @@ import Login from './pages/Login';
 import Products from './pages/Products';
 import ProductCard from './components/ProductCard';
 import ProductItem from './pages/ProductItem';
-// import Buy from './pages/Buy';
 import Payment from './pages/Payment';
 import CategoryContext from './context/CategoryContext';
 import CartContext from './context/CartContext';
@@ -19,7 +18,6 @@ import ProductView from './Admin/ProductView';
 import ProductContext from './context/ProductContext';
 import ProductAdd from './Admin/ProductAdd';
 import ProductUpdate from './Admin/ProductUpdate';
-import ProductDelete from './Admin/ProductDelete';
 import UserListView from './Admin/UserListView';
 import OrderListView from './Admin/OrderListView';
 import AdminHome from './Admin/AdminHome';
@@ -65,8 +63,6 @@ function AppWithRouter() {
           <Route path="/p" element={<Pay />} />
           <Route path="/c" element={<Categorylistview />} />
           <Route path="/ad" element={<AdminLogin />} />
-          {/* <Route path="/a" element={<Buy />} /> */}
-
           <Route path="/admin/*" element={<AdminHome />} />
         </Routes>
         <Toaster position="top-right" />

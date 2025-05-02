@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../redux/productSlice';
 
 function ProductCard({ selected_category = "", selected_sort = "" }) {
-  // const [product, setProduct] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -16,7 +15,6 @@ function ProductCard({ selected_category = "", selected_sort = "" }) {
   const select_product = (selectedId) => {
     navigate(`/item/${selectedId}`);
   };
-// =============================
     const {products}=useSelector(state=>state.product)
     const dispatch=useDispatch()
   
@@ -25,19 +23,7 @@ function ProductCard({ selected_category = "", selected_sort = "" }) {
       
       
     },[])
-    console.log("pro from reduxx--",products);
-    // console.log("pro 2-",product);
-    
 
-    // ======================
-
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     const res = await axiosInstance.get("/product/");
-  //     setProduct(res.data);
-  //   };
-  //   fetch();
-  // }, []);
 
   let filtered_product = [...products];
 

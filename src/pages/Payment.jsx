@@ -10,24 +10,17 @@ function Payment() {
   const [order, setOrder] = useState([]);
   const [address, setAddress] = useState("");
   const [cartIds, setCartIds] = useState([]);
-  // const { cart, fetchCart } = useContext(CartItemsContext);
   const navigate = useNavigate();
   const dispatch=useDispatch()
 
-  // ===========================
   const {cartitems}=useSelector(state=>state.cart)
 
   useEffect(()=>{
     dispatch(getAllCart())
-    console.log("kkkkkkkkkkk");
     
   },[])
 
-  console.log("cccccccc=",cartitems);
   
-
-  // ===========================
-
   useEffect(() => {
     const fetchorderData = async () => {
       try {
@@ -38,7 +31,6 @@ function Payment() {
       }
     };
     fetchorderData();
-    // console.log("oooooo");
     
   }, [cartitems]);
 

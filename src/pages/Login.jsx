@@ -29,12 +29,10 @@ function Login() {
         });
 
         if (response.data.is_admin) {
-          // setIsAdmin(true); 
           navigate('/admin')
           
         } else {
           navigate('/')
-          // window.location.reload()
           
         }
       } catch (error) {

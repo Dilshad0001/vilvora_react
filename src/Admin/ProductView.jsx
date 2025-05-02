@@ -10,21 +10,6 @@ import { deleteProduct } from '../redux/productSlice';
 function ProductView() {
 
   const navigate = useNavigate();
-  // const [productsHere, setProductsHere] = useState([]);
-  // const [nextPage, setNextPage] = useState(null);
-  // const [prevPage, setPrevPage] = useState(null);
-
-  // const fetchProducts = async (url = '/adminproduct/product_view/') => {
-  //   try {
-  //     const res = await axiosInstance.get(url);
-  //     // setProductsHere(res.data.results);
-  //     setNextPage(res.data.next);
-  //     setPrevPage(res.data.previous);
-  //   } catch (error) {
-  //     console.error("fetching error", error);
-  //   }
-  // };
-  // ==================
   const { products, nextPage, previousPage, loading, error } = useSelector((state) => state.product);
   const dispatch=useDispatch()
 
@@ -41,32 +26,12 @@ function ProductView() {
   const fetchPreviousPage = () => {
     if (previousPage) dispatch(getAllProducts(previousPage))
   }
-  console.log("pro from reduxx--",products);
-// =====================
-  // useEffect(() => {
-  //   fetchProducts();
-  // }, []);
+
 
   const toAddProduct = () => {
     navigate('/admin/product_add/');
   };
 
-  // const deleteProduct = async (id) => {
-  //   const confirmDelete = window.confirm("Are you sure you want to delete this product?");
-  //   if (confirmDelete) {
-  //     const updateProduct = productsHere.filter(i => i.id !== id);
-  //     setProductsHere(updateProduct);
-  //     try {
-  //       await axiosInstance.delete('/adminproduct/product_view/', {
-  //         data: { id: id },
-  //       });
-  //     } catch (error) {
-  //       console.error("delete error", error);
-  //     }
-  //   }
-  // };
-
-  
 
 const handleDelete = (id) => {
   const confirmDelete = window.confirm("Are you sure you want to delete this product?");

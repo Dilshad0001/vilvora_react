@@ -12,15 +12,6 @@ function Products() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [sortOption, setSortOption] = useState('');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-  // const {products}=useSelector(state=>state.product)
-  // const dispatch=useDispatch()
-
-  // useEffect(()=>{
-  //   dispatch(getAllProducts())
-    
-    
-  // },[])
-  // console.log("pro from reduxx--",products);
 
   useEffect(() => {
     const fetch = async () => {

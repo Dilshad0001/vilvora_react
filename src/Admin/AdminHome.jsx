@@ -6,7 +6,6 @@ import Sidebar from '../components/Sidebar';
 import ProductView from './ProductView';
 import ProductAdd from './ProductAdd';
 import ProductUpdate from './ProductUpdate';
-import ProductDelete from './ProductDelete';
 import UserListView from './UserListView';
 import OrderListView from './OrderListView';
 import axiosInstance from '../axiosInstance';
@@ -36,54 +35,11 @@ function AdminHome() {
   };
   
 
-  // useEffect(() => {
-  //   const getuser = async () => {
-  //     try {
-  //       const resUser = await axiosInstance.get('users/');
-  //       // console.log("***",resUser.data.results[resUser.data.results.length - 1].id);
-        
-  //       setUsersCount(resUser.data.results[resUser.data.results.length - 1].id);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getuser();
-  // }, []);
-
 
   useEffect(()=>{
     dispatch(getAllUser())
-    // console.log("ddddddddddd",users);
     dispatch(getAllOrder())
-    
-    
-    
-
   },[])
-
-  useEffect(() => {
-    if (orders.length > 0) {
-      // setUsersCount(users[users.length - 1].id);
-      console.log('rrr',orders[orders.length-1].id);
-      
-    }
-    
-  }, [orders]);
-  
-
-  // useEffect(() => {
-  //   const getorder = async () => {
-  //     try {
-  //       const resOrder = await axiosInstance.get('adminorder/');
-  //       setOrderCount(resOrder.data[resOrder.data.length - 1].id);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-  //   getorder();
-  // }, []);
-
-  
 
 
   useEffect(() => {
@@ -157,7 +113,6 @@ function AdminHome() {
             <Route path='/product_view/' element={<ProductView />} />
             <Route path='/product_add/' element={<ProductAdd />} />
             <Route path='/product_update/:updateId' element={<ProductUpdate />} />
-            <Route path='/product_delete/' element={<ProductDelete />} />
             <Route path='/user_view/' element={<UserListView />} />
             <Route path='/order_details/' element={<OrderListView />} />
             <Route path='/adminlogin/' element={<AdminLogin />} />

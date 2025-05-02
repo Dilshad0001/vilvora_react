@@ -18,7 +18,6 @@ const cleaned = updateId.replace(":", "");
 const parsed = parseInt(cleaned, 10);
 
   const { Category } = useContext(ItemsContext);
-  // const products = useContext(productContext);
   const { products, nextPage, previousPage, loading, error } = useSelector((state) => state.product);
 const dispatch=useDispatch()
 

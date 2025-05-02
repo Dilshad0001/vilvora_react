@@ -115,7 +115,18 @@ function OrderListView() {
                 >
                   {order.status}
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-800">{order.date}</td>
+
+                <td className="px-6 py-4 text-sm text-gray-800">
+                  {new Date(order.date).toLocaleString('en-GB', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: true,
+                  })}
+                 </td>
+
                 <td className="px-6 py-4 text-sm text-gray-800">
                   <ul className="list-disc pl-6">
                     {order.carts.map((item, i) => (

@@ -12,11 +12,9 @@ const INITIAL_STATE={
 
 
 const getAllUser=createAsyncThunk("get/users",async (url = '/users/', { rejectWithValue })=>{
-    console.log("uuujju");
     
     try {
         const {data}=await axiosInstance.get(url)
-        console.log("data",data);
         
         return data
     } catch (error) {        

@@ -52,20 +52,6 @@ function ProductAdd() {
     formData.append("product_description", product.product_description);
 
     dispatch(addProducts(formData))
-
-    // axiosInstance
-    //   .post('/adminproduct/product_view/', formData, {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log("Product added successfully:", response.data);
-    //     navigate('/admin/product_view/')
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error adding product:", error);
-    //   });
   };
 
   return (

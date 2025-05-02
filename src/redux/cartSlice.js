@@ -11,15 +11,12 @@ const INITIAL_STATE={
 
 
 const getAllCart=createAsyncThunk("get/cart",async(_,{rejectWithValue})=>{
-    console.log("nnnnnnnnnnnn");
     
     try {
         const {data}=await axiosInstance.get('/cart/')
         return data
-        console.log("gggglll");
         
     } catch (error) {
-        console.log("ppppppppp");
         
         return rejectWithValue(
             error.response ? error.response.message : error.message

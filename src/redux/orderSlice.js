@@ -11,7 +11,6 @@ const INITIAL_STATE={
 const getAllOrder=createAsyncThunk("get/order",async(_,{rejectWithValue})=>{
     try {
         const {data}=await axiosInstance.get('/adminorder/')
-        console.log("ooooo",data);
         return data
         
     } catch (error) {
