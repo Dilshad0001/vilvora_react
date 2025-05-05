@@ -6,6 +6,10 @@ import { Menu, X } from 'lucide-react';
 import Cookies from 'js-cookie';
 import { CartItemsContext } from '../context/CartContext';
 
+
+import { AiOutlineLogin } from "react-icons/ai";
+import { SiGnuprivacyguard } from "react-icons/si";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -46,7 +50,7 @@ const Navbar = () => {
 
       {/* Desktop Header */}
       <div className="hidden md:flex justify-between items-center">
-        <h2 className="text-3xl font-extrabold text-amber-100 tracking-wider">Velvora</h2>
+        <h2 className="text-3xl font-extrabold text-amber-100 tracking-wider">Velvora </h2>
         <ul className="flex space-x-8 items-center">
           <li>
             <Link
@@ -71,17 +75,20 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/login"
-                  className="text-amber-100 font-medium hover:text-green-400 transition"
+                  
+                  className="text-amber-100 font-medium hover:text-green- 400 transition "
                 >
-                  Login
+                  
+                  <AiOutlineLogin />
                 </Link>
+                
               </li>
               <li>
                 <Link
                   to="/register"
                   className="text-amber-100 font-medium hover:text-green-400 transition"
                 >
-                  Register
+                   <SiGnuprivacyguard />
                 </Link>
               </li>
             </>
