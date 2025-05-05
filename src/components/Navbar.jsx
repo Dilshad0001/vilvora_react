@@ -75,7 +75,6 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/login"
-                  
                   className="text-amber-100 font-medium hover:text-green- 400 transition "
                 >
                   
